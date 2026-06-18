@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="pt"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"><title>Naruto RP V4</title>
+<style>:root{--ice:#a8d8ea;--ice-deep:#4a9ebb;--void:#0a0e14;--dark:#111820;--panel:#151d28;--border:#1e2d3d;--text:#c8d8e8;--dim:#6a8a9a;--gold:#c8a86a;--danger:#e84848;--success:#48c878;--warn:#e8943a;--narrator:#4a9ebb;--cb:#3a8fd4;--heart:#e84878}
+*{box-sizing:border-box;margin:0;padding:0}body{background:var(--void);color:var(--text);font-family:Georgia,serif;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+header{background:var(--panel);border-bottom:1px solid var(--border);padding:7px 14px;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.logo{font-size:14px;font-weight:bold;color:var(--ice);letter-spacing:1px}.logo span{color:var(--dim);font-size:10px;font-weight:normal}
+.hact{margin-left:auto;display:flex;gap:5px;align-items:center}
+.api-badge{font-size:9px;background:var(--dark);border:1px solid var(--border);padding:2px 7px;border-radius:10px;color:var(--dim)}
+.btn{background:var(--border);border:1px solid var(--ice-deep);color:var(--ice);padding:4px 10px;border-radius:4px;cursor:pointer;font-size:10px;font-family:Georgia,serif;transition:all .2s}
+.btn:hover{background:var(--ice-deep);color:var(--void)}.btn.d{border-color:var(--danger);color:var(--danger)}.btn.d:hover{background:var(--danger);color:white}
+.btn.s{border-color:var(--success);color:var(--success)}.btn.s:hover{background:var(--success);color:var(--void)}
+.btn.w{border-color:var(--warn);color:var(--warn)}.btn.w:hover{background:var(--warn);color:var(--void)}
+.main{display:flex;flex:1;overflow:hidden}
+.sidebar{width:310px;background:var(--panel);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
+.stabs{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--border);flex-shrink:0}
+.stab{padding:8px 2px;text-align:center;font-size:9px;cursor:pointer;color:var(--dim);border-bottom:2px solid transparent;text-transform:uppercase;letter-spacing:.3px}
+.stab.active{color:var(--ice);border-bottom-color:var(--ice)}
+.tcontent{flex:1;overflow-y:auto;padding:10px;display:none}.tcontent.active{display:block}
+.stitle{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--ice);margin:8px 0 5px;display:flex;align-items:center;gap:5px}
+.stitle::after{content:'';flex:1;height:1px;background:var(--border)}
+.char-card{background:var(--dark);border:1px solid var(--border);border-radius:6px;padding:9px;margin-bottom:8px}
+.char-head{display:flex;gap:9px;align-items:flex-start;margin-bottom:7px}
+.portrait{width:56px;height:56px;border-radius:6px;border:2px solid var(--ice-deep);background:var(--panel);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;cursor:pointer;overflow:hidden}
+.portrait img{width:100%;height:100%;object-fit:cover;border-radius:4px}
+.cname{font-size:13px;color:var(--ice);font-weight:bold}.crole{font-size:9px;color:var(--gold);margin-bottom:3px}
+.tag{background:var(--border);border-radius:8px;padding:1px 6px;font-size:8px;color:var(--dim);display:inline-block;margin:1px}
+.tag.p{color:var(--success)}.tag.ai{color:var(--narrator)}
+.cbw{background:var(--dark);border:1px solid var(--border);border-radius:3px;overflow:hidden;margin-bottom:3px}
+.cb{height:15px;background:linear-gradient(90deg,#1a4a7a,var(--cb));transition:width .5s;display:flex;align-items:center;justify-content:center;font-size:8px;color:white;font-weight:bold;min-width:24px}
+.cb.crit{background:linear-gradient(90deg,#7a1a1a,var(--danger))}.cb.low{background:linear-gradient(90deg,#7a4a1a,var(--warn))}
+.cnums{display:flex;justify-content:space-between;font-size:9px;color:var(--dim);margin-bottom:4px}
+.inj{font-size:8px;color:var(--danger);background:rgba(232,72,72,.1);border:1px solid rgba(232,72,72,.3);border-radius:3px;padding:1px 5px;display:inline-block;margin:1px}
+.no-char{border:2px dashed var(--border);border-radius:6px;padding:16px;text-align:center;color:var(--dim);font-size:11px;cursor:pointer;transition:all .2s;margin-bottom:8px}
+.no-char:hover{border-color:var(--ice-deep);color:var(--ice)}
+.jgrid{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.jbtn{background:var(--dark);border:1px solid var(--border);border-radius:4px;padding:5px 7px;cursor:pointer;transition:all .2s;text-align:left}
+.jbtn:hover:not(.jdis){border-color:var(--ice-deep)}.jbtn.jdis{opacity:.4;cursor:not-allowed}.jbtn.jwarn{border-color:#5a3a1a}
+.jname{font-size:10px;color:var(--ice);display:block}.jrank{font-size:8px;color:var(--gold)}.jcost{font-size:9px;color:var(--dim)}
+.npc-item{background:var(--dark);border:1px solid var(--border);border-radius:5px;padding:7px 9px;margin-bottom:5px;display:flex;align-items:center;gap:8px;cursor:pointer}
+.npc-item:hover{border-color:var(--ice-deep)}
+.npc-name{font-size:11px;color:var(--text);font-weight:bold;flex:1}.npc-sub{font-size:9px;color:var(--dim)}
+.rel-hearts{display:flex;gap:2px}.heart{font-size:12px;color:var(--border)}.heart.filled{color:var(--heart)}
+.balance-display{font-size:18px;color:var(--gold);text-align:center;padding:10px;background:var(--dark);border-radius:6px;margin-bottom:8px}
+.quest-item{background:var(--dark);border:1px solid var(--border);border-radius:4px;padding:6px 9px;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center}
+.prop-item{background:var(--dark);border:1px solid var(--border);border-radius:5px;padding:7px;margin-bottom:5px}
+.prop-img{width:100%;height:70px;object-fit:cover;border-radius:4px;margin-bottom:5px}
+.trans-item{font-size:9px;color:var(--dim);padding:3px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between}
+.trans-item.pos{color:var(--success)}.trans-item.neg{color:var(--danger)}
+.bb-item{background:var(--dark);border:1px solid var(--border);border-radius:4px;padding:6px 9px;margin-bottom:4px}
+.bb-name{font-size:11px;color:var(--danger);font-weight:bold}.bb-rank{font-size:9px;color:var(--gold)}.bb-crime{font-size:9px;color:var(--dim)}
+.world-field{margin-bottom:6px}.world-label{font-size:9px;color:var(--dim);text-transform:uppercase;margin-bottom:2px}
+.world-val{font-size:12px;color:var(--text);background:var(--dark);border:1px solid var(--border);padding:5px 8px;border-radius:4px}
+.cond-item{background:var(--dark);border:1px solid var(--border);border-radius:4px;padding:5px 8px;margin-bottom:3px;display:flex;align-items:flex-start;gap:6px}
+.ctoggle{width:26px;height:14px;background:var(--border);border-radius:7px;cursor:pointer;flex-shrink:0;margin-top:2px;position:relative;transition:background .2s}
+.ctoggle.on{background:var(--success)}.ctoggle::after{content:'';position:absolute;width:10px;height:10px;background:white;border-radius:50%;top:2px;left:2px;transition:left .2s}.ctoggle.on::after{left:14px}
+.cname2{font-size:10px;color:var(--text);font-weight:bold}.cpen{font-size:8px;color:var(--dim);margin-top:1px}
+.chat-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.scene-bar{background:var(--panel);border-bottom:1px solid var(--border);padding:5px 14px;font-size:10px;color:var(--dim);display:flex;align-items:center;gap:8px;flex-shrink:0}
+.scene-loc{color:var(--gold);font-style:italic}
+.tbadge{background:var(--dark);border:1px solid var(--border);border-radius:10px;padding:2px 7px;font-size:9px;color:var(--dim)}
+.cbadge{background:rgba(232,72,72,.2);border:1px solid var(--danger);border-radius:10px;padding:2px 7px;font-size:9px;color:var(--danger);display:none}.cbadge.show{display:block}
+.valert{background:rgba(232,72,72,.1);border:1px solid var(--danger);border-radius:4px;padding:5px 14px;font-size:10px;color:var(--danger);margin:5px 14px;display:none}.valert.show{display:block}
+.cond-alert{background:rgba(232,148,58,.1);border:1px solid var(--warn);border-radius:4px;padding:5px 14px;font-size:10px;color:var(--warn);margin:0 14px 5px;display:none;cursor:pointer}.cond-alert.show{display:block}
+.messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.message{max-width:100%;animation:fi .3s ease}@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.message.narrator .mh{font-size:9px;text-transform:uppercase;letter-spacing:2px;color:var(--narrator);margin-bottom:5px;display:flex;align-items:center;gap:8px}
+.message.narrator .mh::after{content:'';flex:1;height:1px;background:var(--border)}
+.message.narrator .mb{color:var(--text);line-height:1.8;font-size:14px}
+.message.narrator .mb p{margin-bottom:9px}.message.narrator .mb p:last-child{margin-bottom:0}
+.message.narrator .mb .dlg{color:var(--warn)}
+.message.player .mb{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--gold);padding:9px 13px;border-radius:0 5px 5px 0;color:var(--gold);font-style:italic;line-height:1.6}
+.turn-marker{font-size:10px;color:var(--danger);text-align:center;padding:3px;border:1px solid rgba(232,72,72,.2);border-radius:4px;margin:4px 0}
+.clog{font-size:9px;color:var(--cb);margin-top:3px;padding:2px 5px;background:rgba(58,143,212,.1);border-radius:3px;display:inline-block}
+.clog.s{color:var(--success);background:rgba(72,200,120,.1)}.clog.e{color:var(--danger);background:rgba(232,72,72,.1)}
+.mmeta{font-size:8px;color:var(--dim);margin-top:3px;text-align:right}
+.loading{display:flex;gap:4px;align-items:center;padding:8px 0}
+.ld{width:5px;height:5px;background:var(--ice);border-radius:50%;animation:pu 1.2s infinite}.ld:nth-child(2){animation-delay:.2s}.ld:nth-child(3){animation-delay:.4s}
+@keyframes pu{0%,80%,100%{opacity:.3;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
+.input-area{background:var(--panel);border-top:1px solid var(--border);padding:9px 14px;display:flex;flex-direction:column;gap:5px;flex-shrink:0}
+.irow{display:flex;gap:7px;align-items:flex-end}
+textarea{flex:1;background:var(--dark);border:1px solid var(--border);color:var(--text);padding:7px 12px;border-radius:5px;font-size:13px;font-family:Georgia,serif;resize:none;min-height:44px;max-height:110px;line-height:1.5;transition:border-color .2s}
+textarea:focus{outline:none;border-color:var(--ice-deep)}
+.sbtn{background:var(--ice-deep);border:none;color:var(--void);padding:7px 16px;border-radius:5px;cursor:pointer;font-size:13px;font-weight:bold;font-family:Georgia,serif;height:44px;min-width:66px}
+.sbtn:hover{background:var(--ice)}.sbtn:disabled{opacity:.5;cursor:not-allowed}
+.hints{display:flex;gap:5px;flex-wrap:wrap}
+.hint{background:var(--dark);border:1px solid var(--border);color:var(--dim);padding:3px 8px;border-radius:16px;font-size:10px;cursor:pointer;font-family:Georgia,serif}
+.hint:hover{border-color:var(--ice-deep);color:var(--ice)}
+.img-prev-area{display:none;flex-wrap:wrap;gap:5px;padding:5px 0;border-top:1px solid var(--border)}
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}.mo.show{display:flex}
+.md{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:20px;width:520px;max-width:100%;max-height:85vh;overflow-y:auto}
+.md h3{color:var(--ice);margin-bottom:14px;font-size:14px}
+.fg{margin-bottom:10px}.fg label{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:4px}
+.fg input,.fg select,.fg textarea{width:100%;background:var(--dark);border:1px solid var(--border);color:var(--text);padding:7px 10px;border-radius:4px;font-size:12px;font-family:Georgia,serif}
+.fg input:focus,.fg select:focus{outline:none;border-color:var(--ice-deep)}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mact{display:flex;gap:7px;justify-content:flex-end;margin-top:12px}
+.jsel-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;max-height:160px;overflow-y:auto;margin-bottom:8px}
+.jsel-item{background:var(--dark);border:1px solid var(--border);border-radius:4px;padding:5px 7px;cursor:pointer;font-size:10px}
+.jsel-item.sel{border-color:var(--success);background:rgba(72,200,120,.1)}.jsel-item:hover{border-color:var(--ice-deep)}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--void)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+@media(max-width:768px){.sidebar{display:none}.sidebar.mshow{display:flex;position:fixed;inset:0;width:100%;z-index:50}.mbtn{display:block!important}}.mbtn{display:none}
+</style></head><body>
+<header>
+  <div class="logo">❄ Naruto RP <span>— Engine V4</span></div>
+  <div class="hact">
+    <span class="api-badge" id="api-badge">...</span>
+    <button class="btn mbtn" onclick="toggleSidebar()">☰</button>
+    <button class="btn w" onclick="openModal('new-story-modal')">🌟 Nova</button>
+    <button class="btn" onclick="openModal('save-modal')">💾</button>
+    <button class="btn" onclick="showLoadModal()">📂</button>
+  </div>
+</header>
+<div class="main">
+<div class="sidebar" id="sidebar">
+  <div class="stabs" style="grid-template-columns:repeat(6,1fr)">
+    <div class="stab active" onclick="switchTab('chars')">Chars</div>
+    <div class="stab" onclick="switchTab('combat')">Combate</div>
+    <div class="stab" onclick="switchTab('inv')">Items</div>
+    <div class="stab" onclick="switchTab('missions')">⚔️ Quest</div>
+    <div class="stab" onclick="switchTab('npcs')">NPCs</div>
+    <div class="stab" onclick="switchTab('finance')">Casa</div>
+  </div>
+
+  <!-- CHARS -->
+  <div class="tcontent active" id="tab-chars">
+    <div id="player-card"></div>
+    <div id="companion-card"></div>
+    <div class="stitle">Condições</div>
+    <div id="cond-player"></div>
+    <button class="btn" onclick="openAddCond('player')" style="width:100%;margin-top:4px;font-size:10px">+ Condição</button>
+    <div class="stitle" style="margin-top:8px">Jogador Sabe</div>
+    <div id="player-knowledge"></div>
+    <div style="display:flex;gap:4px;margin-top:4px">
+      <input id="pk-input" placeholder="Novo facto..." style="flex:1;background:var(--dark);border:1px solid var(--border);color:var(--text);padding:4px 7px;border-radius:4px;font-size:10px;font-family:Georgia,serif" onkeydown="if(event.key==='Enter')addPK()">
+      <button class="btn" onclick="addPK()">+</button>
+    </div>
+  </div>
+
+  <!-- COMBATE -->
+  <div class="tcontent" id="tab-combat">
+    <div id="world-panel"></div>
+  </div>
+
+  <!-- INVENTÁRIO + LOJA -->
+  <div class="tcontent" id="tab-inv">
+    <!-- Selector personagem -->
+    <div style="display:flex;gap:4px;margin-bottom:8px">
+      <button class="btn active-inv" id="inv-btn-hakuro" onclick="setInvChar('player')" style="flex:1;font-size:10px;border-color:var(--ice)">Jogador</button>
+      <button class="btn" id="inv-btn-kiyomi" onclick="setInvChar('companion')" style="flex:1;font-size:10px">Companion</button>
+    </div>
+    <div class="stitle">Inventário — <span id="inv-char-label">Hakurō</span></div>
+    <div id="inv-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:8px"></div>
+    <button class="btn" onclick="openModal('custom-item-modal')" style="width:100%;font-size:10px;margin-bottom:10px">+ Item Personalizado</button>
+    <div class="stitle">Loja</div>
+    <div style="display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap" id="shop-filters">
+      <span class="hint active-filter" onclick="setShopFilter('')" id="sf-all">Todos</span>
+      <span class="hint" onclick="setShopFilter('consumivel')" id="sf-cons">Med.</span>
+      <span class="hint" onclick="setShopFilter('comida')" id="sf-food">🍜 Comida</span>
+      <span class="hint" onclick="setShopFilter('arma')" id="sf-arma">Armas</span>
+      <span class="hint" onclick="setShopFilter('equipamento')" id="sf-equip">Equip.</span>
+      <span class="hint" onclick="setShopFilter('item')" id="sf-item">Items</span>
+    </div>
+    <div id="shop-grid"></div>
+  </div>
+
+  <!-- MISSÕES -->
+  <div class="tcontent" id="tab-missions">
+    <!-- Fama -->
+    <div id="fame-panel" style="background:var(--dark);border:1px solid var(--border);border-radius:6px;padding:9px;margin-bottom:8px;text-align:center">
+      <div style="font-size:18px;color:var(--gold);font-weight:bold" id="fame-title-disp">Desconhecido</div>
+      <div style="font-size:11px;color:var(--dim);margin-bottom:6px">⭐ <span id="fame-points">0</span> pontos de fama</div>
+      <div style="display:flex;justify-content:center;gap:8px;font-size:10px;color:var(--dim)">
+        <span>D:<span id="fc-D" style="color:var(--text)">0</span></span>
+        <span>C:<span id="fc-C" style="color:var(--text)">0</span></span>
+        <span>B:<span id="fc-B" style="color:var(--success)">0</span></span>
+        <span>A:<span id="fc-A" style="color:var(--warn)">0</span></span>
+        <span>S:<span id="fc-S" style="color:var(--danger)">0</span></span>
+      </div>
+    </div>
+    <!-- Missões Activas (locked) -->
+    <div class="stitle">Missões Activas <span style="color:var(--dim);font-weight:normal" id="locked-count">(0/2)</span></div>
+    <div id="missions-locked"></div>
+    <!-- Disponíveis -->
+    <div class="stitle" style="margin-top:8px">Disponíveis</div>
+    <div style="display:flex;gap:4px;margin-bottom:6px">
+      <button class="btn s" onclick="generateMissions()" id="gen-btn" style="flex:1;font-size:10px">⚡ Gerar Missões</button>
+      <span style="font-size:9px;color:var(--dim);align-self:center" id="last-gen"></span>
+    </div>
+    <div id="missions-available"></div>
+  </div>
+
+  <!-- NPCS -->
+  <div class="tcontent" id="tab-npcs">
+    <button class="btn s" onclick="showCreateNPCModal()" style="width:100%;margin-bottom:8px;font-size:10px">+ Criar NPC</button>
+    <div id="npc-list"></div>
+    <div class="stitle" style="margin-top:8px">Bingo Book</div>
+    <div id="bingo-list"></div>
+  </div>
+
+  <!-- CASA/FINANÇAS -->
+  <div class="tcontent" id="tab-finance">
+    <div class="balance-display" id="balance-display">💰 500 ryō</div>
+    <div style="display:flex;gap:5px;margin-bottom:8px">
+      <button class="btn s" onclick="showFinModal('income')" style="flex:1;font-size:10px">+ Receber</button>
+      <button class="btn d" onclick="showFinModal('expense')" style="flex:1;font-size:10px">- Gastar</button>
+      <button class="btn" onclick="openModal('quest-modal')" style="flex:1;font-size:10px">📋 Quest</button>
+    </div>
+    <div class="stitle">Propriedades</div>
+    <button class="btn" onclick="openModal('property-modal')" style="width:100%;margin-bottom:6px;font-size:10px">+ Propriedade</button>
+    <div id="props-list"></div>
+    <div class="stitle" style="margin-top:8px">Quests</div>
+    <div id="quests-list"></div>
+    <div class="stitle" style="margin-top:8px">Transacções</div>
+    <div id="trans-list"></div>
+  </div>
+</div>
+<div class="chat-area">
+  <div class="scene-bar">📍 <span class="scene-loc" id="scene-loc">—</span><div class="tbadge">T <span id="turn-counter">0</span></div><div class="cbadge" id="combat-badge">⚔️ T<span id="cb-turn">0</span></div></div>
+  <div class="valert" id="valert">⚠️ Narrador falou pelo jogador! → <span id="vtext"></span></div>
+  <div class="cond-alert" id="cond-alert" onclick="applyDetectedConds()">🔔 Condição detectada — clica para adicionar</div>
+  <div style="flex:1;display:flex;overflow:hidden">
+    <div class="messages" id="messages">
+      <div class="message narrator"><div class="mh">❄ Narrador</div><div class="mb"><p>Bem-vindo ao Naruto RP Engine V4.</p><p>Cria o teu personagem no painel esquerdo ou carrega um save.</p><p>Configura a API no ficheiro .env — suporta Anthropic, KoboldAI, Groq e OpenAI.</p></div></div>
+    </div>
+    <!-- PAINEL JUTSU DIREITA — só visível na tab Combate -->
+    <div id="jutsu-right-panel" style="display:none;width:200px;flex-shrink:0;background:var(--panel);border-left:1px solid var(--border);overflow-y:auto;padding:8px">
+      <div class="stitle" id="jutsu-p-label">Jogador</div>
+      <div class="jgrid" id="jutsu-player-panel" style="grid-template-columns:1fr;gap:3px"></div>
+      <div class="stitle" style="margin-top:8px" id="jutsu-c-label">Companion</div>
+      <div class="jgrid" id="jutsu-companion-panel" style="grid-template-columns:1fr;gap:3px"></div>
+    </div>
+  </div>
+  <div class="input-area">
+    <div class="hints">
+      <span class="hint" onclick="ih('[Retoma o RP do ponto actual]')">▶ Retomar</span>
+      <span class="hint" onclick="ih('[O que os NPCs estão a fazer agora?]')">👥 NPCs</span>
+      <span class="hint" onclick="ih('[O que acontece em ' + (worldData.location||'Konoha') + '?]')">🌍 Mundo</span>
+      <span class="hint" onclick="ih('[Estado: chakra, ferimentos, cena]')">📊 Estado</span>
+      <span class="hint" onclick="ih('[Fim de sessão — recap do narrador]')">🌙 Fim</span>
+    </div>
+    <div class="img-prev-area" id="img-prev"></div>
+    <div class="irow">
+      <button class="btn" onclick="document.getElementById('img-up').click()" style="height:44px;padding:0 11px;font-size:15px;flex-shrink:0" title="Imagem">🖼️</button>
+      <input type="file" id="img-up" accept="image/*" multiple style="display:none" onchange="handleImg(event)">
+      <textarea id="ui" placeholder="Escreve a tua acção..." rows="2" onkeydown="handleKD(event)"></textarea>
+      <button class="sbtn" id="sbtn" onclick="sendMsg()">Enviar</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- MODALS -->
+<div class="mo" id="new-story-modal"><div class="md"><h3>🌟 Nova História</h3><p style="font-size:12px;color:var(--dim);margin-bottom:14px">Apaga historial do chat. Personagens podem ser mantidos.</p><label style="display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer;margin-bottom:14px"><input type="checkbox" id="rc-check"> Resetar personagens</label><div class="mact"><button class="btn" onclick="closeModal('new-story-modal')">Cancelar</button><button class="btn w" onclick="doNewStory()">Começar</button></div></div></div>
+
+<div class="mo" id="create-char-modal"><div class="md">
+  <h3 id="cc-title">Criar Personagem</h3>
+  <input type="hidden" id="cc-slot">
+  <div class="fr"><div class="fg"><label>Nome</label><input id="cc-name" placeholder="Nome"></div><div class="fg"><label>Idade</label><input id="cc-age" type="number" value="16"></div></div>
+  <div class="fr"><div class="fg"><label>Clã</label><select id="cc-clan" onchange="updateClanJutsu()"></select></div><div class="fg"><label>Rank</label><select id="cc-rank"></select></div></div>
+  <div class="fr"><div class="fg"><label>Classe</label><select id="cc-class"></select></div><div class="fg"><label>Aldeia</label><select id="cc-village"></select></div></div>
+  <div class="fr"><div class="fg"><label>Chakra Máx</label><input id="cc-chakra" type="number" value="500"></div><div class="fg"><label>Ryō inicial</label><input id="cc-ryou" type="number" value="500"></div></div>
+  <div class="fg"><label>Kekkei Genkai</label><input id="cc-kk" placeholder="Ex: Sharingan, Nenhum"></div>
+  <div class="fg"><label>Descrição Física</label><textarea id="cc-phys" rows="3" placeholder="Altura, peso, cabelo, olhos, pele, marcas, traços distintivos... O narrador usa isto para nunca inventar aparência."></textarea></div>
+  <div class="fg"><label>Background</label><textarea id="cc-bg" rows="2" placeholder="Breve descrição da história do personagem..."></textarea></div>
+  <div class="stitle">Jutsu do Clã (clica para seleccionar)</div>
+  <div class="jsel-grid" id="clan-jutsu"></div>
+  <div class="stitle">Jutsu Base</div>
+  <div class="jsel-grid" id="base-jutsu"></div>
+  <div class="stitle">Jutsu Personalizado</div>
+  <div style="background:var(--dark);border:1px solid var(--border);border-radius:6px;padding:9px;margin-bottom:8px">
+    <div class="fr" style="margin-bottom:5px">
+      <div class="fg"><label>Nome do Jutsu</label><input id="cj-n" placeholder="Ex: Bukijutsu: Erementaru Ya"></div>
+      <div class="fg"><label>Rank</label><select id="cj-rank" style="background:var(--dark);border:1px solid var(--border);color:var(--text);padding:5px;border-radius:4px;font-size:11px;width:100%"><option>E</option><option>D</option><option selected>C</option><option>B</option><option>A</option><option>S</option></select></div>
+    </div>
+    <div class="fg" style="margin-bottom:5px"><label>Descrição / Efeito Principal</label><textarea id="cj-d" rows="2" placeholder="Descreve o jutsu e o seu efeito..." style="background:var(--dark);border:1px solid var(--border);color:var(--text);padding:5px;border-radius:4px;font-size:10px;font-family:Georgia,serif;width:100%;resize:none"></textarea></div>
+    <div class="fr" style="margin-bottom:5px">
+      <div class="fg"><label>Custo Chakra (mín)</label><input id="cj-cmin" type="number" placeholder="20" style="background:var(--dark);border:1px solid var(--border);color:var(--text);padding:5px;border-radius:4px;font-size:11px;width:100%"></div>
+      <div class="fg"><label>Custo Chakra (máx)</label><input id="cj-cmax" type="number" placeholder="25" style="background:var(--dark);border:1px solid var(--border);color:var(--text);padding:5px;border-radius:4px;font-size:11px;width:100%"></div>
+    </div>
+    <div class="fg" style="margin-bottom:5px">
+      <label>Variações (opcional — uma por linha: "Nome [Custo]: Efeito")</label>
+      <textarea id="cj-vars" rows="3" placeholder="Flecha de Frio [25]: Congela articulações, atrasa movimento&#10;Flecha Estática [20]: Choque eléctrico, paralisia temporária&#10;Flecha de Combustão [20]: Explosão concussiva no impacto" style="background:var(--dark);border:1px solid var(--border);color:var(--text);padding:5px;border-radius:4px;font-size:10px;font-family:Georgia,serif;width:100%;resize:none"></textarea>
+    </div>
+    <button class="btn s" onclick="addCJ()" style="width:100%;font-size:10px">+ Adicionar Jutsu</button>
+  </div>
+  <div id="cj-preview" style="margin-bottom:8px"></div>
+  <div class="mact"><button class="btn" onclick="closeModal('create-char-modal')">Cancelar</button><button class="btn s" onclick="doCreateChar()">Criar</button></div>
+</div></div>
+
+<div class="mo" id="create-npc-modal"><div class="md"><h3>👤 Criar NPC</h3>
+  <div class="fr"><div class="fg"><label>Nome</label><input id="nn" placeholder="Nome"></div><div class="fg"><label>Clã</label><input id="nc" placeholder="Clã"></div></div>
+  <div class="fr"><div class="fg"><label>Rank</label><select id="nr"></select></div><div class="fg"><label>Tipo</label><select id="nt"><option value="npc">NPC</option><option value="npc_playable">NPC Jogável</option></select></div></div>
+  <div class="fr"><div class="fg"><label>Associação</label><select id="na"></select></div><div class="fg"><label>Aldeia</label><select id="nv"></select></div></div>
+  <div class="fr"><div class="fg"><label>Nível</label><select id="nl"><option>S</option><option>A</option><option>B</option><option selected>C</option><option>D</option></select></div><div class="fg"><label>Bingo Book</label><select id="nb"><option value="nao">Não</option><option value="sim">Sim</option></select></div></div>
+  <div class="fg"><label>Notas</label><textarea id="no" rows="2" placeholder="Habilidades, personalidade..."></textarea></div>
+  <div class="mact"><button class="btn" onclick="closeModal('create-npc-modal')">Cancelar</button><button class="btn s" onclick="doCreateNPC()">Criar</button></div>
+</div></div>
+
+<div class="mo" id="npc-detail-modal"><div class="md">
+  <h3 id="nd-name">NPC</h3>
+  <div id="nd-info" style="font-size:12px;color:var(--dim);margin-bottom:10px"></div>
+  <div class="stitle">Relacionamento</div>
+  <div id="nd-rel" style="margin-bottom:8px"></div>
+
+  <!-- Estado da relação / notas de vida -->
+  <div style="background:var(--dark);border:1px solid var(--border);border-radius:5px;padding:8px;margin-bottom:10px">
+    <div style="font-size:9px;color:var(--ice);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Estado da Relação</div>
+    <textarea id="nd-life-notes" rows="3" placeholder="Ex: Vivemos juntos em Kumo. Ela cozinha ao jantar. Sabe que sou ninja de Konoha mas não faz perguntas. Tem ciúmes da Hinata..." style="width:100%;background:var(--void);border:1px solid var(--border);color:var(--text);padding:5px 7px;border-radius:4px;font-size:10px;font-family:Georgia,serif;resize:none"></textarea>
+    <button class="btn s" onclick="saveLifeNotes()" style="width:100%;margin-top:5px;font-size:10px">💾 Guardar</button>
+    <div style="font-size:9px;color:var(--dim);margin-top:4px">⚠️ Isto vai para o narrador — escreve o que ele precisa de saber sobre a vossa situação actual.</div>
+  </div>
+
+  <div class="stitle">Acções de Relação</div>
+  <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">
+    <button class="btn s" onclick="doRel('hearts',1)" style="font-size:10px">❤️ +Coração</button>
+    <button class="btn d" onclick="doRel('hearts',-1)" style="font-size:10px">💔 -Coração</button>
+    <button class="btn s" onclick="doRelAction(curNPC?.name,'gift','Presente dado')" style="font-size:10px">🎁 Presente</button>
+    <button class="btn s" onclick="doRelAction(curNPC?.name,'date','Encontro')" style="font-size:10px">💑 Encontro</button>
+    <button class="btn s" onclick="doRelAction(curNPC?.name,'fight_together','Combate conjunto')" style="font-size:10px">⚔️ Juntos</button>
+    <button class="btn s" onclick="doRelAction(curNPC?.name,'save','Salvo pelo jogador')" style="font-size:10px">🛡️ Salvar</button>
+    <button class="btn d" onclick="doRelAction(curNPC?.name,'enemy_action','Conflito')" style="font-size:10px">⚡ Conflito</button>
+    <button class="btn d" onclick="doRelAction(curNPC?.name,'betray','Traição')" style="font-size:10px">🗡️ Trair</button>
+  </div>
+  <div class="stitle">Sabe (Anti-metagaming)</div>
+  <div id="nd-know" style="font-size:11px;color:var(--dim);margin-bottom:8px;max-height:80px;overflow-y:auto"></div>
+  <div style="display:flex;gap:4px;margin-bottom:8px">
+    <input id="nd-ki" placeholder="O que este NPC sabe sobre o jogador..." style="flex:1;background:var(--dark);border:1px solid var(--border);color:var(--text);padding:4px 7px;border-radius:4px;font-size:10px;font-family:Georgia,serif">
+    <button class="btn" onclick="addNPCKnow()">+</button>
+  </div>
+  <div class="stitle">Histórico</div>
+  <div id="nd-history" style="font-size:9px;color:var(--dim);max-height:60px;overflow-y:auto;margin-bottom:8px"></div>
+  <div class="mact"><button class="btn d" onclick="addBingo()" style="font-size:10px">📖 Bingo</button><button class="btn" onclick="closeModal('npc-detail-modal')">Fechar</button></div>
+</div></div>
+
+<div class="mo" id="finance-modal"><div class="md"><h3 id="fin-t">Transacção</h3><input type="hidden" id="fin-type"><div class="fg"><label>Valor (ryō)</label><input id="fin-v" type="number" placeholder="0"></div><div class="fg"><label>Descrição</label><input id="fin-d" placeholder="Ex: Missão B-rank"></div><div class="mact"><button class="btn" onclick="closeModal('finance-modal')">Cancelar</button><button class="btn s" onclick="doFin()">Confirmar</button></div></div></div>
+
+<div class="mo" id="property-modal"><div class="md"><h3>🏠 Propriedade</h3>
+  <div class="fg"><label>Nome</label><input id="pn" placeholder="Ex: Casa Rua Hinoki 7"></div>
+  <div class="fg"><label>Localização</label><input id="pl" placeholder="Konoha, Distrito Norte"></div>
+  <div class="fg"><label>Custo (ryō)</label><input id="pc" type="number" placeholder="0"></div>
+  <div class="fg"><label>Notas</label><textarea id="pnotes" rows="2" placeholder="Características..."></textarea></div>
+  <div class="fg"><label>Imagem</label><button class="btn" onclick="document.getElementById('pi-up').click()" style="width:100%;margin-bottom:5px">📷 Imagem</button><input type="file" id="pi-up" accept="image/*" style="display:none" onchange="setPropImg(event)"><div id="pi-prev"></div></div>
+  <div class="mact"><button class="btn" onclick="closeModal('property-modal')">Cancelar</button><button class="btn s" onclick="doAddProp()">Adicionar</button></div>
+</div></div>
+
+<div class="mo" id="quest-modal"><div class="md"><h3>📋 Quest</h3>
+  <div class="fg"><label>Nome</label><input id="qn" placeholder="Ex: Escolta"></div>
+  <div class="fg"><label>Recompensa (ryō)</label><input id="qr" type="number" placeholder="0"></div>
+  <div class="fg"><label>Descrição</label><textarea id="qd" rows="2" placeholder="Objectivo..."></textarea></div>
+  <div class="mact"><button class="btn" onclick="closeModal('quest-modal')">Cancelar</button><button class="btn s" onclick="doAddQuest()">Adicionar</button></div>
+</div></div>
+
+<div class="mo" id="add-cond-modal"><div class="md"><h3>+ Condição</h3>
+  <input type="hidden" id="ac-slot">
+  <div class="fg"><label>Nome</label><input id="ac-n" placeholder="Ex: Ferido grave"></div>
+  <div class="fg"><label>Penalidade</label><input id="ac-p" placeholder="Ex: -30% chakra"></div>
+  <div class="fg"><label>Categoria</label><select id="ac-c"><option value="fisica">Física</option><option value="mental">Mental</option><option value="chakra">Chakra</option><option value="especial">Especial</option></select></div>
+  <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px">
+    <span class="hint" onclick="qc('A sangrar','Perde 50 ck/turno','fisica')">A sangrar</span>
+    <span class="hint" onclick="qc('Envenenado','−20 ck/turno','fisica')">Envenenado</span>
+    <span class="hint" onclick="qc('Ferido grave','−30% chakra','fisica')">Ferido grave</span>
+    <span class="hint" onclick="qc('Exausto','Jutsu bloqueados','chakra')">Exausto</span>
+    <span class="hint" onclick="qc('Sob Genjutsu','Percepção alterada','mental')">Genjutsu</span>
+    <span class="hint" onclick="qc('Inconsciente','Sem acção','fisica')">Inconsciente</span>
+    <span class="hint" onclick="qc('Perna partida','Sem deslocação','fisica')">Perna partida</span>
+    <span class="hint" onclick="qc('Queimado','−20% concentração','fisica')">Queimado</span>
+  </div>
+  <div class="mact"><button class="btn" onclick="closeModal('add-cond-modal')">Cancelar</button><button class="btn s" onclick="doAddCond()">Adicionar</button></div>
+</div></div>
+
+<div class="mo" id="custom-item-modal"><div class="md"><h3>+ Item Personalizado</h3>
+  <div class="fg"><label>Nome</label><input id="ci-n" placeholder="Ex: Naginata de Gelo"></div>
+  <div class="fr">
+    <div class="fg"><label>Tipo</label><select id="ci-t"><option value="arma">Arma</option><option value="equipamento">Equipamento</option><option value="consumivel">Consumível</option><option value="comida">Comida</option><option value="especial">Especial</option><option value="item">Item</option></select></div>
+    <div class="fg"><label>Quantidade</label><input id="ci-q" type="number" value="1" min="1"></div>
+  </div>
+  <div class="fr">
+    <div class="fg"><label>Chakra (+)</label><input id="ci-ck" type="number" value="0"></div>
+    <div class="fg"><label>Ícone (emoji)</label><input id="ci-ic" placeholder="⚔️" maxlength="2"></div>
+  </div>
+  <div class="fg"><label>Descrição</label><input id="ci-d" placeholder="O que faz este item..."></div>
+  <div id="ci-err" style="font-size:10px;color:var(--danger);display:none;padding:4px 0">Preenche o nome do item.</div>
+  <div class="mact"><button class="btn" onclick="closeModal('custom-item-modal')">Cancelar</button><button class="btn s" onclick="doAddCustomItem()">Adicionar</button></div>
+</div></div>
+
+<div class="mo" id="jutsu-modal"><div class="md"><h3 id="jm-t">Jutsu</h3><p id="jm-d" style="font-size:12px;color:var(--dim);margin-bottom:8px"></p><p id="jm-c" style="font-size:11px;color:var(--cb);margin-bottom:12px"></p><div class="mact"><button class="btn" onclick="closeModal('jutsu-modal')">Cancelar</button><button class="btn s" onclick="doJutsu()">Usar</button></div></div></div>
+
+<!-- Modal sugestão NPC auto-detectado -->
+<div class="mo" id="npc-suggest-modal"><div class="md">
+  <h3>👤 Criar NPC</h3>
+  <p id="npc-suggest-text" style="font-size:12px;color:var(--dim);margin-bottom:12px"></p>
+  <div class="fg"><label>Nome do NPC</label><input id="ns-name" placeholder="Ex: Yugito, Gaara, Kakashi..."></div>
+  <div class="fg"><label>Clã / Origem</label><input id="ns-clan" placeholder="Ex: Nii, Hyūga, Sem Clã"></div>
+  <div class="fr">
+    <div class="fg"><label>Rank</label><select id="ns-rank"></select></div>
+    <div class="fg"><label>Aldeia</label><select id="ns-village"></select></div>
+  </div>
+  <div class="fg"><label>Notas</label><input id="ns-notes" placeholder="Personalidade, habilidades..."></div>
+  <div class="mact">
+    <button class="btn" onclick="skipNPCSuggest()">Cancelar</button>
+    <button class="btn s" onclick="confirmNPCSuggest()">Criar NPC</button>
+  </div>
+</div></div>
+
+<div class="mo" id="save-modal"><div class="md"><h3>💾 Gravar</h3><input id="save-n" placeholder="Nome do save..." style="width:100%;background:var(--dark);border:1px solid var(--border);color:var(--text);padding:7px 10px;border-radius:4px;font-size:12px;font-family:Georgia,serif;margin-bottom:10px"><div class="mact"><button class="btn" onclick="closeModal('save-modal')">Cancelar</button><button class="btn s" onclick="doSave()">Gravar</button></div></div></div>
+
+<div class="mo" id="load-modal"><div class="md"><h3>📂 Carregar</h3><div id="load-list"></div><div class="mact"><button class="btn" onclick="closeModal('load-modal')">Fechar</button></div></div></div>
+
+<script>
+const A='';
+let chars={player:null,companion:null},npcs=[],rels={},world={location:'—',date:'',time:'',canon_arc:''},fin={balance:500,transactions:[],properties:[],quests:[]},combat={active:false,turn:0,min_turns:4,participants:[],log:[]},conds={player:[],companion:[]};
+let nd={ALDEIAS:[],RANKS:[],CLASSES:[],ASSOCIACOES:[],CLANS:[],JUTSU_POR_CLA:{},JUTSU_GENERICOS:[]};
+let selJ=[],custJ=[],propImg=null,pendJ=null,curNPC=null,pendConds=[];
+let imgs=[];
+
+async function init(){
+  const r=await fetch(A+'/api/naruto_data');nd=await r.json();
+  await Promise.all([lChars(),lNPCs(),lRels(),lWorld(),lFin(),lCombat(),lConds(),lKnow(),lInv()]);
+  // Actualizar labels dos botões com nomes reais
+  const pName=chars.player?.name||'Jogador';
+  const cName=chars.companion?.name||'Companion';
+  const hb=document.getElementById('inv-btn-hakuro');if(hb)hb.textContent=pName;
+  const kb=document.getElementById('inv-btn-kiyomi');if(kb)kb.textContent=cName;
+  const lbl=document.getElementById('inv-char-label');if(lbl)lbl.textContent=pName;
+  document.getElementById('api-badge').textContent='API ✓';
+}
+
+async function lChars(){const r=await fetch(A+'/api/characters');chars=await r.json();renderChars();}
+async function lNPCs(){const r=await fetch(A+'/api/npcs');npcs=await r.json();renderNPCs();}
+async function lRels(){const r=await fetch(A+'/api/relations');rels=await r.json();renderNPCs();}
+async function lWorld(){const r=await fetch(A+'/api/world');world=await r.json();renderWorld();}
+async function lFin(){const r=await fetch(A+'/api/finance');fin=await r.json();renderFin();}
+async function lCombat(){const r=await fetch(A+'/api/combat');combat=await r.json();renderWorld();}
+async function lConds(){const r=await fetch(A+'/api/conditions');conds=await r.json();renderConds();}
+async function lKnow(){const r=await fetch(A+'/api/knowledge');const d=await r.json();const el=document.getElementById('player-knowledge');if(el)el.innerHTML=(d.player||[]).map(f=>`<div style="font-size:10px;color:var(--dim);padding:2px 0;border-bottom:1px solid var(--border)">${esc(f)}</div>`).join('');}
+
+function renderChars(){
+  ['player','companion'].forEach(slot=>{
+    const el=document.getElementById(slot+'-card');if(!el)return;
+    const c=chars[slot];
+    if(!c){el.innerHTML=`<div class="no-char" onclick="openCC('${slot}')">+ Criar ${slot==='player'?'Personagem Jogador':'Companion'}</div>`;return;}
+    const pct=Math.max(0,Math.min(100,((c.chakra||0)/(c.chakra_max||500))*100));
+    el.innerHTML=`<div class="char-card"><div class="char-head">
+      <div class="portrait" onclick="document.getElementById('fp-${slot}').click()">${c.portrait?`<img src="${c.portrait}">`:'❄'}</div>
+      <input type="file" id="fp-${slot}" style="display:none" accept="image/*" onchange="setPort('${slot}',event)">
+      <div><div class="cname">${c.name}</div><div class="crole">${c.clan} · ${c.rank}</div>
+      <span class="tag ${slot==='player'?'p':'ai'}">${slot==='player'?'👤 Jogador':'🤖 Companion'}</span><span class="tag">${c.age}a</span><span class="tag">${c.village}</span></div>
+    </div>
+    <div class="cbw"><div class="cb ${pct<=10?'crit':pct<=30?'low':''}" style="width:${pct}%">${c.chakra||0}/${c.chakra_max||500}</div></div>
+    <div class="cnums"><span>${c.chakra||0}/${c.chakra_max||500}</span><span style="color:var(--gold)">💰${c.ryou||0}ryō</span></div>
+    <div>${(c.injuries||[]).map(i=>`<span class="inj">⚠️${i}</span>`).join('')}</div>
+    <div style="display:flex;gap:4px;margin-top:6px">
+      <button class="btn s" onclick="adjCk('${slot}',50)" style="flex:1;font-size:9px">+50ck</button>
+      <button class="btn d" onclick="adjCk('${slot}',-50)" style="flex:1;font-size:9px">-50ck</button>
+      <button class="btn" onclick="openCC('${slot}')" style="font-size:9px">✏️</button>
+    </div>
+    ${slot==='player'?`<div id="fame-in-card" style="margin-top:5px;padding:3px 0;border-top:1px solid var(--border)"></div>`:''}
+    <div class="stitle" style="margin-top:8px">Jutsu</div>
+    <div class="jgrid">${(c.jutsu||[]).map(j=>{const cant=c.chakra<j.cost||(c.chakra/c.chakra_max)*100<=10;return`<div class="jbtn${j.warning?' jwarn':''}${cant?' jdis':''}" onclick="openJM('${slot}','${(j.id||j.name).replace(/'/g,"\'")}','${j.name.replace(/'/g,"\'")}','${(j.desc||'').replace(/'/g,"\'")}',${j.cost||0})"><span class="jname">${j.warning?'⚠️':''}${j.name}</span><span class="jrank">${j.rank||''}</span><span class="jcost">${j.cost||0}ck</span></div>`;}).join('')}</div>
+    </div>`;
+  });
+}
+
+function renderWorld(){
+  document.getElementById('scene-loc').textContent=world.location||'—';
+  const el=document.getElementById('world-panel');if(!el)return;
+  let html=`<div class="world-field"><div class="world-label">Localização</div><div class="world-val">📍 ${world.location||'—'}</div></div>
+    <div class="world-field"><div class="world-label">Arco Canon</div><div class="world-val">📖 ${world.canon_arc||'—'}</div></div>
+    <div style="display:flex;gap:4px;margin-bottom:8px">
+      <input id="loc-in" value="${world.location||''}" placeholder="Nova localização..." style="flex:1;background:var(--dark);border:1px solid var(--border);color:var(--text);padding:4px 7px;border-radius:4px;font-size:10px;font-family:Georgia,serif">
+      <button class="btn" onclick="updLoc()">✓</button>
+      <button class="btn w" onclick="doTeleport()" style="font-size:9px">⚡ TP</button>
+    </div>`;
+  if(combat.active){
+    const pct=Math.min(100,(combat.turn/combat.min_turns)*100);
+    html+=`<div style="text-align:center;margin-bottom:6px"><span style="font-size:30px;font-weight:bold;color:var(--ice)">${combat.turn}</span><div style="font-size:9px;color:var(--dim)">TURNO / ${combat.min_turns} mín</div></div>
+    <div style="background:var(--border);border-radius:3px;height:6px;margin-bottom:6px"><div style="height:100%;width:${pct}%;background:linear-gradient(90deg,var(--warn),var(--success));border-radius:3px"></div></div>
+    <div style="font-size:10px;color:var(--dim);margin-bottom:5px">${(combat.participants||[]).join(' · ')}</div>
+    <div style="display:flex;gap:4px"><button class="btn s" onclick="nxtTurn()" style="flex:1;font-size:10px">➡ Próximo</button><button class="btn d" onclick="endCbt()" style="font-size:10px">✕ Fim</button></div>`;
+    document.getElementById('combat-badge').classList.add('show');
+    document.getElementById('cb-turn').textContent=combat.turn;
+  }else{
+    html+=`<div style="font-size:10px;color:var(--dim);text-align:center;padding:6px">Sem combate</div>
+    <input id="cbt-p" placeholder="Participantes (vírgula)..." style="width:100%;background:var(--dark);border:1px solid var(--border);color:var(--text);padding:4px 7px;border-radius:4px;font-size:10px;font-family:Georgia,serif;margin-bottom:5px">
+    <button class="btn w" onclick="startCbt()" style="width:100%;font-size:10px">⚔️ Iniciar Combate</button>`;
+    document.getElementById('combat-badge').classList.remove('show');
+  }
+  el.innerHTML=html;
+}
+
+function renderNPCs(){
+  const el=document.getElementById('npc-list');if(!el)return;
+  el.innerHTML=npcs.map(n=>{
+    const r=rels[n.name]||{hearts:1};
+    const h=Array(5).fill(0).map((_,i)=>`<span class="heart ${i<r.hearts?'filled':''}">❤</span>`).join('');
+    return`<div class="npc-item" onclick="openNPCDetail('${n.id}')"><div style="flex:1"><div class="npc-name">${n.name}</div><div class="npc-sub">${n.clan||'?'} · ${n.rank||'?'} · ${n.assoc||'—'}</div></div><div class="rel-hearts">${h}</div></div>`;
+  }).join('');
+  fetch(A+'/api/bingo').then(r=>r.json()).then(data=>{
+    const bb=document.getElementById('bingo-list');if(!bb)return;
+    bb.innerHTML=data.slice(0,6).map(b=>`<div class="bb-item"><div class="bb-name">📖 ${b.name}</div><div class="bb-rank">${b.rank||'?'} — ${b.aldeia||'?'}</div><div class="bb-crime">${b.crime||''}</div></div>`).join('');
+  });
+}
+
+function renderFin(){
+  document.getElementById('balance-display').textContent=`💰 ${fin.balance||0} ryō`;
+  const pl=document.getElementById('props-list');if(pl)pl.innerHTML=(fin.properties||[]).map(p=>`<div class="prop-item">${p.image?`<img src="${p.image}" class="prop-img">`:''}<div style="font-size:11px;color:var(--ice);font-weight:bold">${p.name}</div><div style="font-size:9px;color:var(--dim)">${p.location||''} · ${p.cost||0}ryō</div></div>`).join('');
+  const ql=document.getElementById('quests-list');if(ql)ql.innerHTML=(fin.quests||[]).map(q=>`<div class="quest-item"><div><div style="font-size:11px;${q.completed?'color:var(--dim);text-decoration:line-through':''}">${q.name}</div><div style="font-size:9px;color:var(--gold)">${q.reward||0}ryō</div></div>${!q.completed?`<button class="btn s" onclick="compQ('${q.id}')" style="font-size:9px;padding:2px 6px">✓</button>`:'<span style="font-size:9px;color:var(--dim)">✓</span>'}</div>`).join('');
+  const tl=document.getElementById('trans-list');if(tl)tl.innerHTML=(fin.transactions||[]).slice(0,8).map(t=>`<div class="trans-item ${t.amount>0?'pos':'neg'}"><span>${t.description||'—'}</span><span>${t.amount>0?'+':''}${t.amount}ryō</span></div>`).join('');
+}
+
+function renderConds(){
+  const el=document.getElementById('cond-player');if(!el)return;
+  const list=conds.player||[];
+  el.innerHTML=list.length?list.map(c=>`<div class="cond-item"><div class="ctoggle ${c.active?'on':''}" onclick="togCond('player','${c.id}',${!c.active})"></div><div style="flex:1"><div class="cname2">${c.name}</div><div class="cpen">${c.penalty}</div></div><span style="color:var(--danger);cursor:pointer;font-size:11px" onclick="rmCond('player','${c.id}')">✕</span></div>`).join(''):'<div style="font-size:10px;color:var(--dim);padding:4px">Sem condições</div>';
+}
+
+// ACTIONS
+async function adjCk(slot,amt){await fetch(A+'/api/characters/chakra',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({slot,amount:amt})});await lChars();}
+async function updLoc(){const loc=document.getElementById('loc-in')?.value.trim();if(!loc)return;await fetch(A+'/api/world/update',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:loc})});await lWorld();}
+async function doTeleport(){const d=prompt('Destino:');if(!d)return;const c=parseInt(prompt('Chakra (ex: 50):')||'50');const r=await fetch(A+'/api/world/teleport',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({destination:d,chakra_cost:c})});const dt=await r.json();if(dt.success){appendCL(`⚡→${d} -${c}ck`,'s');ih(`[Teleportei-me para ${d}]`);await lWorld();await lChars();}else appendCL(`❌${dt.reason}`,'e');}
+async function startCbt(){const p=(document.getElementById('cbt-p')?.value||'').split(',').map(s=>s.trim()).filter(Boolean);await fetch(A+'/api/combat/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({participants:p,min_turns:4})});await lCombat();appendCM(`⚔️ ${p.join(' vs ')}`);}
+async function endCbt(){if(!confirm('Terminar?'))return;await fetch(A+'/api/combat/end',{method:'POST'});await lCombat();appendCM('🏁 FIM');}
+async function nxtTurn(){await fetch(A+'/api/combat/next_turn',{method:'POST'});await lCombat();}
+
+// JUTSU
+function openJM(slot,id,name,desc,cost){pendJ={slot,id,name,desc,cost};document.getElementById('jm-t').textContent=name;document.getElementById('jm-d').textContent=desc;document.getElementById('jm-c').textContent=`Custo: ${cost}ck`;openModal('jutsu-modal');}
+async function doJutsu(){if(!pendJ)return;const r=await fetch(A+'/api/characters/use_jutsu',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({slot:pendJ.slot,jutsu_id:pendJ.id})});const d=await r.json();closeModal('jutsu-modal');if(d.success){await lChars();appendCL(`⚔️${d.jutsu_name} -${d.cost}ck→${d.chakra}`,'');ih(`[Uso ${d.jutsu_name}]`);}else appendCL(`❌${d.reason}`,'e');pendJ=null;}
+
+// CONDITIONS
+function openAddCond(slot){document.getElementById('ac-slot').value=slot;openModal('add-cond-modal');}
+function qc(n,p,c){document.getElementById('ac-n').value=n;document.getElementById('ac-p').value=p;document.getElementById('ac-c').value=c;}
+async function doAddCond(){const slot=document.getElementById('ac-slot').value;const n=document.getElementById('ac-n').value.trim();const p=document.getElementById('ac-p').value.trim();const c=document.getElementById('ac-c').value;if(!n)return;await fetch(A+'/api/conditions/add',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({slot,condition:{id:'c_'+Date.now(),name:n,penalty:p,category:c}})});closeModal('add-cond-modal');await lConds();}
+async function togCond(slot,id,active){await fetch(A+'/api/conditions/toggle',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({slot,id,active})});await lConds();}
+async function rmCond(slot,id){await fetch(A+'/api/conditions/remove',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({slot,id})});await lConds();}
+async function applyDetectedConds(){for(const c of pendConds){await fetch(A+'/api/conditions/add',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({slot:'player',condition:{id:c.id,name:c.name,penalty:c.penalty,category:'fisica'}})});}document.getElementById('cond-alert').classList.remove('show');await lConds();}
+
+// NPC
+function openNPCDetail(id){curNPC=npcs.find(n=>n.id===id);if(!curNPC)return;
+  document.getElementById('nd-name').textContent=curNPC.name;
+  document.getElementById('nd-info').innerHTML=`<div>${curNPC.clan||'?'} · ${curNPC.rank||'?'} · ${curNPC.assoc||'—'}</div><div>Tipo: ${curNPC.type} · ${curNPC.class_rank||'?'} · BB: ${curNPC.bingo_book?'✅':'❌'}</div>${curNPC.notes?`<div style="margin-top:5px;font-size:11px">${curNPC.notes}</div>`:''}`;
+  const r=rels[curNPC.name]||{hearts:0.5,friendship:0,enmity:0,status:'Conhecido'};
+  const hFull=Math.floor(r.hearts||0);
+  const hHalf=(r.hearts||0)%1>=0.5;
+  const hearts=Array(5).fill(0).map((_,i)=>`<span style="font-size:16px;color:${i<hFull?'var(--heart)':i===hFull&&hHalf?'var(--heart)':'var(--border)'}">${i===hFull&&hHalf?'½':'❤'}</span>`).join('');
+  document.getElementById('nd-rel').innerHTML=`<div style="margin-bottom:4px">${hearts}</div><div style="font-size:11px;color:var(--dim)">${r.status||'Conhecido'} · 🤝${r.friendship||0}% · ⚡${r.enmity||0}%</div>`;
+  // Notas de vida
+  const lifeEl=document.getElementById('nd-life-notes');
+  if(lifeEl)lifeEl.value=r.life_notes||'';
+  // Histórico
+  const histEl=document.getElementById('nd-history');
+  if(histEl)histEl.innerHTML=(r.history||[]).slice(-8).reverse().map(h=>`<div style="padding:1px 0;border-bottom:1px solid var(--border)">${h}</div>`).join('')||'(sem histórico)';
+  // Conhecimento
+  fetch(A+'/api/knowledge').then(r=>r.json()).then(k=>{const f=(k.npcs||{})[curNPC.name]||[];document.getElementById('nd-know').innerHTML=f.length?f.map(x=>`<div style="border-bottom:1px solid var(--border);padding:2px 0">${x}</div>`).join(''):'(nada)';});
+  openModal('npc-detail-modal');
+}
+async function doRel(field,delta){if(!curNPC)return;const b={name:curNPC.name};if(field==='hearts')b.delta_hearts=delta;if(field==='friendship')b.delta_friendship=delta;if(field==='enmity')b.delta_enmity=delta;await fetch(A+'/api/relations/update',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)});await lRels();openNPCDetail(curNPC.id);}
+async function saveLifeNotes(){
+  if(!curNPC)return;
+  const notes=document.getElementById('nd-life-notes').value.trim();
+  await fetch(A+'/api/relations/life_notes',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:curNPC.name,notes})});
+  appendCL(`💾 Notas de ${curNPC.name} guardadas`,'s');
+  await lRels();
+}
+
+async function addNPCKnow(){if(!curNPC)return;const f=document.getElementById('nd-ki').value.trim();if(!f)return;await fetch(A+'/api/knowledge/npc',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({npc:curNPC.name,fact:f})});document.getElementById('nd-ki').value='';openNPCDetail(curNPC.id);}
+async function addBingo(){if(!curNPC)return;await fetch(A+'/api/bingo/add',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:curNPC.name,clan:curNPC.clan,rank:curNPC.class_rank,aldeia:curNPC.village,crime:'Adicionado em jogo',recompensa:'Variável'})});appendCL(`📖${curNPC.name} no Bingo`,'s');closeModal('npc-detail-modal');renderNPCs();}
+
+// FINANCE
+function showFinModal(t){document.getElementById('fin-type').value=t;document.getElementById('fin-t').textContent=t==='income'?'+ Receber':'- Gastar';openModal('finance-modal');}
+async function doFin(){const v=parseInt(document.getElementById('fin-v').value)||0;const d=document.getElementById('fin-d').value.trim();const t=document.getElementById('fin-type').value;await fetch(A+'/api/finance/transaction',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({amount:v,description:d,type:t})});closeModal('finance-modal');await lFin();}
+function setPropImg(e){const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=ev=>{propImg=ev.target.result;document.getElementById('pi-prev').innerHTML=`<img src="${ev.target.result}" style="width:100%;height:70px;object-fit:cover;border-radius:4px">`;};rd.readAsDataURL(f);}
+async function doAddProp(){const p={name:document.getElementById('pn').value.trim(),location:document.getElementById('pl').value.trim(),cost:parseInt(document.getElementById('pc').value)||0,notes:document.getElementById('pnotes').value.trim(),image:propImg};await fetch(A+'/api/finance/property',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)});propImg=null;closeModal('property-modal');await lFin();}
+async function doAddQuest(){const q={name:document.getElementById('qn').value.trim(),reward:parseInt(document.getElementById('qr').value)||0,description:document.getElementById('qd').value.trim()};await fetch(A+'/api/finance/quest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(q)});closeModal('quest-modal');await lFin();}
+async function compQ(id){await fetch(A+'/api/finance/quest/complete',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})});await lFin();}
+
+// CREATE CHAR
+function openCC(slot){
+  selJ=[];custJ=[];
+  document.getElementById('cc-slot').value=slot;
+  document.getElementById('cc-title').textContent=slot==='player'?'Criar Personagem Jogador':'Criar Companion';
+  document.getElementById('cc-clan').innerHTML=nd.CLANS.map(c=>`<option value="${c.name}">${c.name} (${c.kekkei})</option>`).join('');
+  document.getElementById('cc-rank').innerHTML=nd.RANKS.map(r=>`<option>${r}</option>`).join('');
+  document.getElementById('cc-class').innerHTML=nd.CLASSES.map(c=>`<option>${c}</option>`).join('');
+  document.getElementById('cc-village').innerHTML=nd.ALDEIAS.map(a=>`<option>${a}</option>`).join('');
+  updateClanJutsu();renderBaseJutsu();
+  document.getElementById('cc-kk').value='';
+  document.getElementById('cc-phys').value='';
+  document.getElementById('cc-bg').value='';
+  document.getElementById('cj-preview').innerHTML='';
+  openModal('create-char-modal');
+}
+function updateClanJutsu(){
+  const c=document.getElementById('cc-clan')?.value;
+  const j=nd.JUTSU_POR_CLA[c]||[];
+  const el=document.getElementById('clan-jutsu');if(!el)return;
+  el.innerHTML=j.map(jj=>{
+    const sel=selJ.find(s=>s.name===jj.name);
+    const rankColor={'E':'var(--dim)','D':'var(--dim)','C':'var(--success)','B':'var(--cb)','A':'var(--warn)','S':'var(--danger)'}[jj.rank]||'var(--dim)';
+    return`<div class="jsel-item ${sel?'sel':''}" onclick="togJ(${JSON.stringify(jj).replace(/"/g,"'")})">
+      <div style="font-size:10px;color:var(--ice);margin-bottom:2px">${sel?'✅ ':''} ${jj.name}</div>
+      <div style="display:flex;gap:6px">
+        <span style="font-size:8px;color:${rankColor};border:1px solid ${rankColor};border-radius:3px;padding:0 4px">${jj.rank||'?'}</span>
+        <span style="font-size:8px;color:var(--dim)">${jj.cost}ck</span>
+      </div>
+      ${jj.desc?`<div style="font-size:8px;color:var(--dim);margin-top:2px">${jj.desc}</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+function renderBaseJutsu(){
+  const el=document.getElementById('base-jutsu');if(!el)return;
+  el.innerHTML=nd.JUTSU_GENERICOS.map(j=>{
+    const sel=selJ.find(s=>s.name===j.name);
+    return`<div class="jsel-item ${sel?'sel':''}" onclick="togJ(${JSON.stringify(j).replace(/"/g,"'")})">
+      <div style="font-size:10px;color:var(--ice)">${sel?'✅ ':''}${j.name}</div>
+      <span style="font-size:8px;color:var(--dim)">${j.cost}ck</span>
+    </div>`;
+  }).join('');
+}
+
+function togJ(j){
+  const i=selJ.findIndex(s=>s.name===j.name);
+  if(i>=0)selJ.splice(i,1);else selJ.push(j);
+  updateClanJutsu();renderBaseJutsu();
+}
+
+function addCJ(){
+  const n=document.getElementById('cj-n').value.trim();
+  const d=document.getElementById('cj-d').value.trim();
+  const cmin=parseInt(document.getElementById('cj-cmin').value)||0;
+  const cmax=parseInt(document.getElementById('cj-cmax').value)||cmin;
+  const rank=document.getElementById('cj-rank').value||'C';
+  const varsRaw=document.getElementById('cj-vars').value.trim();
+  if(!n)return;
+
+  // Parsear variações
+  const variations=[];
+  if(varsRaw){
+    varsRaw.split('\n').forEach(line=>{
+      const m=line.match(/^(.+?)\s*\[(\d+)\]:\s*(.+)$/);
+      if(m) variations.push({name:m[1].trim(),cost:parseInt(m[2]),desc:m[3].trim()});
+      else if(line.trim()) variations.push({name:line.trim(),cost:cmin,desc:''});
+    });
+  }
+
+  const jutsu={
+    name:n, desc:d,
+    cost:cmin, cost_max:cmax>cmin?cmax:undefined,
+    rank, variations,
+    id:'cj_'+Date.now()
+  };
+  custJ.push(jutsu);
+
+  // Limpar campos
+  ['cj-n','cj-d','cj-cmin','cj-cmax','cj-vars'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.value='';
+  });
+
+  // Render preview
+  const rankColor={'E':'var(--dim)','D':'var(--dim)','C':'var(--success)','B':'var(--cb)','A':'var(--warn)','S':'var(--danger)'}[rank]||'var(--dim)';
+  document.getElementById('cj-preview').innerHTML=custJ.map(j=>`
+    <div style="background:var(--dark);border:1px solid var(--border);border-left:2px solid ${({'E':'var(--dim)','D':'var(--dim)','C':'var(--success)','B':'var(--cb)','A':'var(--warn)','S':'var(--danger)'}[j.rank]||'var(--border)')};border-radius:4px;padding:6px 8px;margin-bottom:4px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:11px;color:var(--ice);font-weight:bold">${j.name}</span>
+        <div style="display:flex;gap:5px;align-items:center">
+          <span style="font-size:8px;color:${({'E':'var(--dim)','D':'var(--dim)','C':'var(--success)','B':'var(--cb)','A':'var(--warn)','S':'var(--danger)'}[j.rank]||'var(--dim)')};border:1px solid currentColor;border-radius:3px;padding:0 4px">${j.rank}</span>
+          <span style="font-size:9px;color:var(--dim)">${j.cost}${j.cost_max?'-'+j.cost_max:''}ck</span>
+          <span onclick="custJ.splice(custJ.indexOf(j),1);addCJ.caller;document.getElementById('cj-preview').innerHTML=custJ.length?document.getElementById('cj-preview').innerHTML:''" style="color:var(--danger);cursor:pointer;font-size:10px">✕</span>
+        </div>
+      </div>
+      ${j.desc?`<div style="font-size:9px;color:var(--dim);margin-top:2px">${j.desc}</div>`:''}
+      ${j.variations?.length?`<div style="margin-top:4px">${j.variations.map(v=>`<div style="font-size:9px;color:var(--text);padding:1px 0">▸ <span style="color:var(--ice)">${v.name}</span> [${v.cost}ck]: ${v.desc}</div>`).join('')}</div>`:''}
+    </div>`).join('');
+}
+async function doCreateChar(){const slot=document.getElementById('cc-slot').value;const data={name:document.getElementById('cc-name').value.trim(),age:document.getElementById('cc-age').value,clan:document.getElementById('cc-clan').value,rank:document.getElementById('cc-rank').value,class:document.getElementById('cc-class').value,village:document.getElementById('cc-village').value,chakra_max:parseInt(document.getElementById('cc-chakra').value)||500,ryou:parseInt(document.getElementById('cc-ryou').value)||500,kekkei:document.getElementById('cc-kk').value.trim(),physical_desc:document.getElementById('cc-phys').value.trim(),description:document.getElementById('cc-bg').value.trim(),jutsu:[...selJ,...custJ].map((j,i)=>({...j,id:j.id||'j_'+i})),type:slot==='player'?'player':'npc_playable'};if(!data.name)return;await fetch(A+'/api/characters/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({slot,data})});closeModal('create-char-modal');await lChars();
+  // Actualizar labels do inventário com o novo nome
+  const pName=chars.player?.name||'Jogador';const cName=chars.companion?.name||'Companion';
+  const hb=document.getElementById('inv-btn-hakuro');if(hb)hb.textContent=pName;
+  const kb=document.getElementById('inv-btn-kiyomi');if(kb)kb.textContent=cName;
+  const lbl=document.getElementById('inv-char-label');if(lbl)lbl.textContent=invChar==='player'?pName:cName;
+}
+
+// CREATE NPC
+async function doCreateNPC(){
+  document.getElementById('nr').innerHTML=nd.RANKS.map(r=>`<option>${r}</option>`).join('');
+  const npc={name:document.getElementById('nn').value.trim(),clan:document.getElementById('nc').value.trim(),rank:document.getElementById('nr').value,type:document.getElementById('nt').value,assoc:document.getElementById('na').value,village:document.getElementById('nv').value,class_rank:document.getElementById('nl').value,bingo_book:document.getElementById('nb').value==='sim',notes:document.getElementById('no').value.trim()};
+  if(!npc.name)return;await fetch(A+'/api/npcs/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(npc)});closeModal('create-npc-modal');await lNPCs();await lRels();
+}
+
+function showCreateNPCModal(){
+  document.getElementById('nr').innerHTML=nd.RANKS.map(r=>`<option>${r}</option>`).join('');
+  document.getElementById('na').innerHTML=nd.ASSOCIACOES.map(a=>`<option>${a}</option>`).join('');
+  document.getElementById('nv').innerHTML=nd.ALDEIAS.map(a=>`<option>${a}</option>`).join('');
+  openModal('create-npc-modal');
+}
+
+// PORTRAITS
+function setPort(slot,e){const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=ev=>{fetch(A+'/api/characters/portrait',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({slot,image:ev.target.result})}).then(()=>lChars());};rd.readAsDataURL(f);}
+
+// KNOWLEDGE
+async function addPK(){const i=document.getElementById('pk-input');const f=i.value.trim();if(!f)return;await fetch(A+'/api/knowledge/player',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fact:f})});i.value='';await lKnow();}
+
+// CHAT
+function handleImg(e){Array.from(e.target.files).forEach(f=>{const rd=new FileReader();rd.onload=ev=>{imgs.push({base64:ev.target.result.split(',')[1],mediaType:f.type,name:f.name});renderImgs();};rd.readAsDataURL(f);});e.target.value='';}
+function renderImgs(){const el=document.getElementById('img-prev');if(!el)return;if(!imgs.length){el.style.display='none';el.innerHTML='';return;}el.style.display='flex';el.innerHTML=imgs.map((img,i)=>`<div style="position:relative"><img src="data:${img.mediaType};base64,${img.base64}" style="height:50px;width:50px;object-fit:cover;border-radius:4px;border:1px solid var(--ice-deep)"><span onclick="imgs.splice(${i},1);renderImgs()" style="position:absolute;top:-4px;right:-4px;background:var(--danger);color:white;border-radius:50%;width:14px;height:14px;font-size:9px;display:flex;align-items:center;justify-content:center;cursor:pointer">✕</span></div>`).join('');}
+
+async function sendMsg(){
+  const inp=document.getElementById('ui');const msg=inp.value.trim();if(!msg&&!imgs.length)return;
+  const btn=document.getElementById('sbtn');btn.disabled=true;
+  const txt=msg||'[Imagem enviada como referência]';inp.value='';
+  appendMsg('player',txt,null,imgs.map(i=>`data:${i.mediaType};base64,${i.base64}`));
+  const ld=appendLoading();
+  try{
+    const r=await fetch(A+'/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:txt,images:imgs})});
+    const d=await r.json();ld.remove();imgs=[];renderImgs();
+    if(d.error)appendMsg('narrator',`[ERRO: ${d.error}]`);
+    else{
+      appendMsg('narrator',d.message,d.tokensUsed);
+      document.getElementById('turn-counter').textContent=d.turn;
+      if(d.violations?.length){document.getElementById('valert').classList.add('show');document.getElementById('vtext').textContent=d.violations.join(', ');setTimeout(()=>document.getElementById('valert').classList.remove('show'),8000);}
+      if(d.detectedConditions?.length){pendConds=d.detectedConditions;document.getElementById('cond-alert').classList.add('show');}
+      if(d.combatTurn!=null){document.getElementById('cb-turn').textContent=d.combatTurn;await lCombat();}
+      if(d.autoPayment){appendCL(`💸 -${d.autoPayment.amount}ryō (auto) → ${d.autoPayment.balance}ryō restante`,'e');await lFin();}
+      if(d.npcTrigger){
+        document.getElementById('ns-rank').innerHTML=nd.RANKS.map(r=>`<option>${r}</option>`).join('');
+        document.getElementById('ns-village').innerHTML=nd.ALDEIAS.map(a=>`<option>${a}</option>`).join('');
+        document.getElementById('ns-name').value=d.npcSuggestedName||'';
+        document.getElementById('ns-clan').value='';
+        document.getElementById('ns-notes').value='';
+        document.getElementById('npc-suggest-text').textContent=d.npcSuggestedName?`Criar NPC: ${d.npcSuggestedName}`:'Novo NPC — preenche os dados:';
+        currentSuggest={name:d.npcSuggestedName||'',is_canon:false};
+        openModal('npc-suggest-modal');
+      }
+      await lWorld();
+    }
+  }catch(e){ld.remove();appendMsg('narrator',`[Erro: ${e.message}]`);}
+  btn.disabled=false;inp.focus();
+}
+
+function appendMsg(role,content,tokens,prevs){
+  const msgs=document.getElementById('messages');const el=document.createElement('div');el.className=`message ${role}`;
+  if(role==='narrator'){const fmt=content.replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>').replace(/"([^"]+)"/g,'<span class="dlg">"$1"</span>');el.innerHTML=`<div class="mh">❄ Narrador</div><div class="mb"><p>${fmt}</p></div>${tokens?`<div class="mmeta">${tokens}t</div>`:''}`;}
+  else{const im=prevs?.length?`<div style="display:flex;gap:4px;margin-bottom:5px">${prevs.map(s=>`<img src="${s}" style="height:55px;width:55px;object-fit:cover;border-radius:4px;border:1px solid var(--ice-deep)">`).join('')}</div>`:'';el.innerHTML=`<div class="mb">${im}<div style="color:var(--gold);font-style:italic">${esc(content)}</div></div>`;}
+  msgs.appendChild(el);msgs.scrollTop=msgs.scrollHeight;return el;
+}
+function appendLoading(){const msgs=document.getElementById('messages');const el=document.createElement('div');el.className='message narrator';el.innerHTML='<div class="mh">❄ Narrador</div><div class="loading"><div class="ld"></div><div class="ld"></div><div class="ld"></div></div>';msgs.appendChild(el);msgs.scrollTop=msgs.scrollHeight;return el;}
+function appendCL(t,c){const msgs=document.getElementById('messages');const el=document.createElement('div');el.className=`clog ${c}`;el.textContent=t;msgs.appendChild(el);msgs.scrollTop=msgs.scrollHeight;setTimeout(()=>el.style.opacity='0.4',4000);}
+function appendCM(t){const msgs=document.getElementById('messages');const el=document.createElement('div');el.className='turn-marker';el.textContent=t;msgs.appendChild(el);msgs.scrollTop=msgs.scrollHeight;}
+function handleKD(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
+function ih(t){document.getElementById('ui').value=t;document.getElementById('ui').focus();}
+function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}
+
+// STORY
+async function doNewStory(){const rc=document.getElementById('rc-check').checked;await fetch(A+'/api/new_story',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({resetCharacters:rc})});closeModal('new-story-modal');document.getElementById('messages').innerHTML='<div class="message narrator"><div class="mh">❄ Narrador</div><div class="mb"><p>Nova história iniciada.</p></div></div>';document.getElementById('turn-counter').textContent='0';if(rc){chars={player:null,companion:null};['player-card','companion-card'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=`<div class="no-char" onclick="openCC('${id.replace('-card','')}')">+ Criar</div>`;});}await Promise.all([lWorld(),lFin(),lConds(),lKnow()]);}
+
+// SAVES
+async function doSave(){const n=document.getElementById('save-n').value.trim()||`save_${Date.now()}`;await fetch(A+'/api/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n})});closeModal('save-modal');appendCL(`💾 ${n}`,'s');}
+async function showLoadModal(){openModal('load-modal');const r=await fetch(A+'/api/saves');const d=await r.json();document.getElementById('load-list').innerHTML=(!d.saves||!d.saves.length)?'<p style="color:var(--dim);font-size:12px">Nenhum save.</p>':d.saves.map(s=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:6px;background:var(--dark);border:1px solid var(--border);border-radius:4px;margin-bottom:4px"><span style="font-size:11px">💾 ${s.name}</span><button class="btn s" onclick="doLoad('${s.name}')" style="font-size:10px;padding:3px 8px">Carregar</button></div>`).join('');}
+async function doLoad(name){await fetch(A+`/api/load/${name}`,{method:'POST'});closeModal('load-modal');const hr=await fetch(A+'/api/history');const hd=await hr.json();const msgs=document.getElementById('messages');msgs.innerHTML='';(hd.messages||[]).forEach(m=>appendMsg(m.role==='user'?'player':'narrator',m.content));document.getElementById('turn-counter').textContent=hd.turn||0;await Promise.all([lChars(),lNPCs(),lRels(),lWorld(),lFin(),lCombat(),lConds(),lKnow()]);}
+
+// ═══ INVENTÁRIO ═══
+let invChar='player';
+let shopFilter='';
+let shopData=[];
+let invData={player:[],companion:[]};
+
+async function lInv(){
+  const r=await fetch(A+'/api/inventory');invData=await r.json();
+  // Migrar dados antigos com nomes hardcoded
+  if(!invData.player&&(invData.hakuro||invData.kiyomi)){
+    invData.player=invData.hakuro||[];invData.companion=invData.kiyomi||[];
+  }
+  const rs=await fetch(A+'/api/shop');shopData=await rs.json();
+  renderInv();renderShop();
+}
+
+function setInvChar(c){
+  invChar=c;
+  const pName=chars.player?.name||'Jogador';
+  const cName=chars.companion?.name||'Companion';
+  document.getElementById('inv-char-label').textContent=c==='player'?pName:cName;
+  document.getElementById('inv-btn-hakuro').textContent=pName;
+  document.getElementById('inv-btn-hakuro').style.borderColor=c==='player'?'var(--ice)':'var(--border)';
+  document.getElementById('inv-btn-kiyomi').textContent=cName;
+  document.getElementById('inv-btn-kiyomi').style.borderColor=c==='companion'?'var(--ice)':'var(--border)';
+  renderInv();
+}
+
+function setShopFilter(f){
+  shopFilter=f;
+  ['all','cons','food','arma','equip','item'].forEach(id=>{
+    const el=document.getElementById('sf-'+id);if(el)el.style.color='';});
+  const map={'':'all','consumivel':'cons','comida':'food','arma':'arma','equipamento':'equip','item':'item'};
+  const activeEl=document.getElementById('sf-'+(map[f]||'all'));
+  if(activeEl)activeEl.style.color='var(--ice)';
+  renderShop();
+}
+
+function renderInv(){
+  const el=document.getElementById('inv-grid');if(!el)return;
+  const items=(invData[invChar]||[]);
+  const typeColors={'arma':'var(--danger)','equipamento':'var(--gold)','consumivel':'var(--success)','especial':'var(--ice)','item':'var(--dim)'};
+  el.innerHTML=items.length===0?'<div style="font-size:10px;color:var(--dim);grid-column:1/-1;padding:8px">Inventário vazio</div>':
+    items.map(i=>`<div style="background:var(--dark);border:1px solid var(--border);border-radius:5px;padding:6px;text-align:center;cursor:${i.chakra_restore>0||i.type==='consumivel'?'pointer':'default'}" onclick="${i.chakra_restore>0||i.type==='consumivel'?`useItem('${i.id}')`:''}" title="${i.desc||''}">
+      <div style="font-size:18px">${i.icon||'📦'}</div>
+      <div style="font-size:9px;color:var(--text);margin:2px 0">${i.name}</div>
+      <div style="font-size:8px;color:${typeColors[i.type]||'var(--dim)'}">x${i.qty}</div>
+      ${i.chakra_restore>0?`<div style="font-size:8px;color:var(--success)">+${i.chakra_restore}ck</div>`:''}
+      <div style="display:flex;gap:2px;margin-top:3px;justify-content:center">
+        ${i.qty>0&&chars.player&&chars.companion?`<button onclick="event.stopPropagation();transferItem('${i.id}')" style="background:var(--border);border:none;color:var(--dim);font-size:8px;padding:1px 4px;border-radius:3px;cursor:pointer" title="Transferir">⇄</button>`:''}
+      </div>
+    </div>`).join('');
+}
+
+async function useItem(itemId){
+  const r=await fetch(A+'/api/inventory/use',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({char:invChar,item_id:itemId})});
+  const d=await r.json();
+  if(d.success){
+    const charName=invChar==='player'?(chars.player?.name||'Jogador'):(chars.companion?.name||'Companion');
+    appendCL(`🧪 ${charName} usa ${d.item_name}${d.chakra_gained?` +${d.chakra_gained}ck`:''}`, 's');
+    if(d.chakra_gained) await lChars();
+    await lInv();
+  } else appendCL(`❌ ${d.reason}`,'e');
+}
+
+async function transferItem(itemId){
+  const to=invChar==='player'?'companion':'player';
+  const toName=to==='player'?(chars.player?.name||'Jogador'):(chars.companion?.name||'Companion');
+  const r=await fetch(A+'/api/inventory/transfer',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({from:invChar,to,item_id:itemId,qty:1})});
+  const d=await r.json();
+  if(d.success){appendCL(`⇄ Item transferido para ${toName}`,'s');await lInv();}
+  else appendCL(`❌ ${d.reason}`,'e');
+}
+
+function renderShop(){
+  const el=document.getElementById('shop-grid');if(!el)return;
+  const filtered=shopFilter?shopData.filter(i=>i.type===shopFilter):shopData;
+  const typeIcons={'arma':'⚔️','equipamento':'🦺','consumivel':'💊','especial':'🔮','item':'📦'};
+  el.innerHTML=filtered.map(i=>`<div style="background:var(--dark);border:1px solid var(--border);border-radius:4px;padding:5px 7px;margin-bottom:3px;display:flex;align-items:center;gap:7px">
+    <span style="font-size:16px">${i.icon||typeIcons[i.type]||'📦'}</span>
+    <div style="flex:1">
+      <div style="font-size:10px;color:var(--text)">${i.name}</div>
+      <div style="font-size:8px;color:var(--dim)">${i.desc||''}</div>
+    </div>
+    <div style="text-align:right;flex-shrink:0">
+      <div style="font-size:9px;color:var(--gold)">${i.price}ryō</div>
+      ${i.chakra_restore?`<div style="font-size:8px;color:var(--success)">+${i.chakra_restore}ck</div>`:''}
+      <button onclick="buyItem('${i.id}')" style="background:var(--border);border:1px solid var(--ice-deep);color:var(--ice);padding:1px 6px;border-radius:3px;cursor:pointer;font-size:9px;margin-top:2px">+</button>
+    </div>
+  </div>`).join('');
+}
+
+async function buyItem(itemId){
+  const r=await fetch(A+'/api/inventory/buy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({char:invChar,item_id:itemId,qty:1})});
+  const d=await r.json();
+  if(d.success){appendCL(`🛒 ${d.item} — ${d.balance}ryō restante`,'s');await lInv();await lFin();}
+  else appendCL(`❌ ${d.reason}`,'e');
+}
+
+async function doAddCustomItem(){
+  const name=document.getElementById('ci-n').value.trim();
+  const errEl=document.getElementById('ci-err');
+  if(!name){if(errEl){errEl.style.display='block';}return;}
+  if(errEl)errEl.style.display='none';
+  const item={
+    name,
+    type:document.getElementById('ci-t').value,
+    qty:parseInt(document.getElementById('ci-q').value)||1,
+    chakra_restore:parseInt(document.getElementById('ci-ck').value)||0,
+    icon:document.getElementById('ci-ic').value.trim()||'📦',
+    desc:document.getElementById('ci-d').value.trim(),
+    price:0,
+    id:'custom_'+Date.now()
+  };
+  const r=await fetch(A+'/api/inventory/add_custom',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({char:invChar,item})});
+  const d=await r.json();
+  if(d.success){
+    closeModal('custom-item-modal');
+    // Limpar campos
+    ['ci-n','ci-d','ci-ic'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+    document.getElementById('ci-q').value='1';
+    document.getElementById('ci-ck').value='0';
+    appendCL(`📦 ${item.icon} ${item.name} adicionado ao inventário`,'s');
+    await lInv();
+  } else {
+    appendCL(`❌ Erro ao adicionar item`,'e');
+  }
+}
+
+// ═══ JUTSU NO PAINEL DE COMBATE ═══
+function renderJutsuPanels(){
+  renderJutsuPanel('player','jutsu-player-panel');
+  renderJutsuPanel('companion','jutsu-companion-panel');
+}
+
+function renderJutsuPanel(slot,elId){
+  const el=document.getElementById(elId);if(!el)return;
+  const c=chars[slot];
+  if(!c){el.innerHTML=`<div style="font-size:10px;color:var(--dim);grid-column:1/-1">Sem personagem</div>`;return;}
+  const jutsu=c.jutsu||[];
+  const pct=(c.chakra/c.chakra_max)*100;
+  el.innerHTML=jutsu.length===0?`<div style="font-size:10px;color:var(--dim);grid-column:1/-1">Sem jutsu registado</div>`:
+    jutsu.map(j=>{const cant=c.chakra<j.cost||pct<=10;return`<div class="jbtn${j.warning?' jwarn':''}${cant?' jdis':''}" onclick="${cant?'':''} openJM('${slot}','${(j.id||j.name).replace(/'/g,"\\'")}','${j.name.replace(/'/g,"\\'")}','${(j.desc||'').replace(/'/g,"\\'")}',${j.cost||0})">
+      <span class="jname">${j.warning?'⚠️':''}${j.name}</span>
+      <span class="jrank">${j.rank||''}</span>
+      <span class="jcost">${j.cost||0}ck</span>
+    </div>`;}).join('');
+}
+
+// ═══ MISSÕES ═══
+const RANK_COLORS = {D:'var(--dim)',C:'var(--success)',B:'var(--cb)',A:'var(--warn)',S:'var(--danger)'};
+let missionsData = {available:[],locked:[],completed:[],fame:0,fame_title:'Desconhecido',counts:{D:0,C:0,B:0,A:0,S:0}};
+
+async function lMissions(){
+  const r=await fetch(A+'/api/missions');missionsData=await r.json();renderMissions();
+}
+
+function renderMissions(){
+  // Fama
+  document.getElementById('fame-title-disp').textContent=missionsData.fame_title||'Desconhecido';
+  document.getElementById('fame-points').textContent=missionsData.fame||0;
+  ['D','C','B','A','S'].forEach(r=>{
+    const el=document.getElementById('fc-'+r);if(el)el.textContent=(missionsData.counts||{})[r]||0;
+  });
+
+  // Locked
+  const locked=missionsData.locked||[];
+  document.getElementById('locked-count').textContent=`(${locked.length}/2)`;
+  const lEl=document.getElementById('missions-locked');
+  lEl.innerHTML=locked.length===0?'<div style="font-size:10px;color:var(--dim);padding:6px">Sem missões activas</div>':
+    locked.map(m=>{
+      const allDone=m.steps.length>0&&m.steps.every(s=>m.completed_steps?.includes(s));
+      return`<div style="background:var(--dark);border:1px solid ${RANK_COLORS[m.rank]||'var(--border)'};border-radius:6px;padding:9px;margin-bottom:6px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text);font-weight:bold">${m.title}</span>
+          <span style="font-size:9px;padding:1px 6px;border-radius:8px;background:${RANK_COLORS[m.rank]}22;color:${RANK_COLORS[m.rank]};border:1px solid ${RANK_COLORS[m.rank]}">${m.rank}</span>
+        </div>
+        <div style="font-size:10px;color:var(--dim);margin-bottom:6px">${m.objective}</div>
+        <div style="margin-bottom:6px">${(m.steps||[]).map(s=>{
+          const done=m.completed_steps?.includes(s);
+          return`<div style="display:flex;align-items:center;gap:5px;font-size:10px;color:${done?'var(--success)':'var(--text)'};padding:2px 0;cursor:pointer" onclick="toggleStep('${m.id}','${s.replace(/'/g,"\\'")}')">
+            <span>${done?'✅':'⬜'}</span><span style="${done?'text-decoration:line-through;opacity:.6':''}">${s}</span>
+          </div>`;}).join('')}</div>
+        <div style="display:flex;gap:4px;align-items:center">
+          <span style="font-size:10px;color:var(--gold)">💰 ${m.reward||0}ryō</span>
+          <div style="flex:1"></div>
+          ${allDone?`<button class="btn s" onclick="completeMission('${m.id}')" style="font-size:10px;padding:3px 9px">✓ Cumprir</button>`:''}
+          <button class="btn d" onclick="abandonMission('${m.id}')" style="font-size:9px;padding:2px 6px">✕</button>
+        </div>
+      </div>`;
+    }).join('');
+
+  // Available
+  const avail=missionsData.available||[];
+  const aEl=document.getElementById('missions-available');
+  const genBtn=document.getElementById('gen-btn');
+  if(missionsData.generating){genBtn.textContent='⏳ A gerar...';genBtn.disabled=true;}
+  else{genBtn.textContent='⚡ Gerar Missões';genBtn.disabled=false;}
+  const lastGen=document.getElementById('last-gen');
+  if(lastGen&&missionsData.last_generated){const d=new Date(missionsData.last_generated);lastGen.textContent=`${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`;}
+  aEl.innerHTML=avail.length===0?`<div style="font-size:10px;color:var(--dim);padding:8px;text-align:center">${missionsData.generating?'A gerar missões...':'Sem missões disponíveis — clica Gerar'}</div>`:
+    avail.map(m=>`<div style="background:var(--dark);border:1px solid var(--border);border-radius:5px;padding:7px 9px;margin-bottom:4px;display:flex;align-items:center;gap:7px">
+      <span style="font-size:11px;padding:1px 6px;border-radius:8px;color:${RANK_COLORS[m.rank]||'var(--dim)'};border:1px solid ${RANK_COLORS[m.rank]||'var(--border)'};flex-shrink:0">${m.rank}</span>
+      <div style="flex:1">
+        <div style="font-size:11px;color:var(--text);font-weight:bold">${m.title}</div>
+        <div style="font-size:9px;color:var(--dim)">${m.objective?.substring(0,60)||''}...</div>
+      </div>
+      <div style="text-align:right;flex-shrink:0">
+        <div style="font-size:9px;color:var(--gold)">💰${m.reward||0}</div>
+        <button class="btn s" onclick="lockMission('${m.id}')" style="font-size:9px;padding:2px 7px;margin-top:2px" ${(missionsData.locked||[]).length>=2?'disabled':''}>Aceitar</button>
+      </div>
+    </div>`).join('');
+}
+
+async function generateMissions(){
+  document.getElementById('gen-btn').textContent='⏳...';
+  document.getElementById('gen-btn').disabled=true;
+  await fetch(A+'/api/missions/generate',{method:'POST'});
+  setTimeout(()=>lMissions(),1000);
+}
+
+async function lockMission(id){
+  const r=await fetch(A+'/api/missions/lock',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})});
+  const d=await r.json();
+  if(d.success)await lMissions();
+  else appendCL(`❌ ${d.reason}`,'e');
+}
+
+async function toggleStep(missionId,step){
+  await fetch(A+'/api/missions/step',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:missionId,step})});
+  await lMissions();
+}
+
+async function completeMission(id){
+  const r=await fetch(A+'/api/missions/complete',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})});
+  const d=await r.json();
+  if(d.success){
+    appendCL(`🏆 Missão cumprida! +${d.reward}ryō · Fama: ${d.fame} (${d.fame_title})`,'s');
+    await lMissions();await lFin();
+  }else appendCL(`❌ ${d.reason}`,'e');
+}
+
+async function abandonMission(id){
+  if(!confirm('Abandonar missão?'))return;
+  await fetch(A+'/api/missions/abandon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})});
+  await lMissions();
+}
+
+// ═══ NPC AUTO-DETECT ═══
+let npcSuggestQueue = [];
+let currentSuggest = null;
+
+async function processNPCSuggestions(names) {
+  if (!names || names.length === 0) return;
+  for (const name of names) {
+    const r = await fetch(A+'/api/relations/suggest_npc', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,context:''})});
+    const d = await r.json();
+    if (!d.exists) npcSuggestQueue.push({name, is_canon: d.is_canon});
+  }
+  if (npcSuggestQueue.length > 0) showNextNPCSuggest();
+}
+
+function showNextNPCSuggest() {
+  if (npcSuggestQueue.length === 0) return;
+  currentSuggest = npcSuggestQueue.shift();
+  const canon = currentSuggest.is_canon ? ' (personagem canon)' : '';
+  document.getElementById('npc-suggest-text').innerHTML =
+    `O narrador mencionou <strong style="color:var(--ice)">${currentSuggest.name}</strong>${canon}.<br>Quer adicionar à lista de NPCs?`;
+  document.getElementById('ns-clan').value = '';
+  document.getElementById('ns-notes').value = '';
+  document.getElementById('ns-rank').innerHTML = nd.RANKS.map(r=>`<option>${r}</option>`).join('');
+  document.getElementById('ns-village').innerHTML = nd.ALDEIAS.map(a=>`<option>${a}</option>`).join('');
+  openModal('npc-suggest-modal');
+}
+
+async function confirmNPCSuggest() {
+  const nameInput = document.getElementById('ns-name').value.trim();
+  const name = nameInput || (currentSuggest?.name) || '';
+  if (!name) { document.getElementById('ns-name').focus(); return; }
+  await fetch(A+'/api/relations/auto_create_npc',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+    name,
+    is_canon: currentSuggest?.is_canon || false,
+    clan: document.getElementById('ns-clan').value,
+    rank: document.getElementById('ns-rank').value,
+    village: document.getElementById('ns-village').value,
+    notes: document.getElementById('ns-notes').value,
+    context: ''
+  })});
+  closeModal('npc-suggest-modal');
+  appendCL(`👤 ${name} adicionado como NPC (½❤️ Conhecido)`,'s');
+  await lNPCs(); await lRels();
+  currentSuggest = null;
+}
+
+function skipNPCSuggest() {
+  closeModal('npc-suggest-modal');
+  currentSuggest = null;
+  setTimeout(()=>showNextNPCSuggest(), 300);
+}
+
+// ═══ ACÇÕES DE RELAÇÃO ═══
+async function doRelAction(npcName, actionType, note) {
+  const r = await fetch(A+'/api/relations/action',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:npcName,action_type:actionType,note})});
+  const d = await r.json();
+  if (d.success) {
+    appendCL(`💫 ${npcName}: ${d.message}`,'s');
+    await lRels();
+    if (currentNPC && currentNPC.name === npcName) openNPCDetail(currentNPC.id);
+  }
+}
+
+// ═══ FAMA NO CARD ═══
+function renderFameInCard() {
+  // Injecto fama no card do jogador se disponível
+  fetch(A+'/api/missions').then(r=>r.json()).then(m=>{
+    const el=document.getElementById('fame-in-card');
+    if(el&&m.fame>=0){
+      el.innerHTML=`<span style="color:var(--gold);font-size:9px">⭐${m.fame} · ${m.fame_title}</span> <span style="font-size:8px;color:var(--dim)">D:${m.counts?.D||0} C:${m.counts?.C||0} B:${m.counts?.B||0} A:${m.counts?.A||0} S:${m.counts?.S||0}</span>`;
+    }
+  }).catch(()=>{});
+}
+function switchTab(t){
+  const tabs=['chars','combat','inv','missions','npcs','finance'];
+  document.querySelectorAll('.stab').forEach((el,i)=>el.classList.toggle('active',tabs[i]===t));
+  document.querySelectorAll('.tcontent').forEach(c=>c.classList.remove('active'));
+  document.getElementById(`tab-${t}`)?.classList.add('active');
+  const rp=document.getElementById('jutsu-right-panel');
+  if(rp)rp.style.display=t==='combat'?'block':'none';
+  if(t==='combat'){
+    renderWorld();renderJutsuPanels();
+    const pl=document.getElementById('jutsu-p-label');
+    const cl=document.getElementById('jutsu-c-label');
+    if(pl)pl.textContent=chars.player?.name||'Jogador';
+    if(cl)cl.textContent=chars.companion?.name||'Companion';
+  }
+  if(t==='inv')lInv();
+  if(t==='missions')lMissions();
+}
+
+// UI UTILS
+function openModal(id){document.getElementById(id)?.classList.add('show');}
+function closeModal(id){document.getElementById(id)?.classList.remove('show');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('mshow');}
+// Fechar ao clicar fora — excepto modal de criação de personagem (tem texto seleccionável)
+const NO_CLICK_CLOSE = ['create-char-modal'];
+document.querySelectorAll('.mo').forEach(m=>m.addEventListener('click',e=>{
+  if(e.target===m && !NO_CLICK_CLOSE.includes(m.id)) m.classList.remove('show');
+}));
+
+async function init(){
+  const r=await fetch(A+'/api/naruto_data');nd=await r.json();
+  await Promise.all([lChars(),lNPCs(),lRels(),lWorld(),lFin(),lCombat(),lConds(),lKnow(),lInv(),lMissions()]);
+  const pName=chars.player?.name||'Jogador';
+  const cName=chars.companion?.name||'Companion';
+  const hb=document.getElementById('inv-btn-hakuro');if(hb)hb.textContent=pName;
+  const kb=document.getElementById('inv-btn-kiyomi');if(kb)kb.textContent=cName;
+  const lbl=document.getElementById('inv-char-label');if(lbl)lbl.textContent=pName;
+  document.getElementById('api-badge').textContent='API ✓';
+  renderFameInCard();
+  // Poll fama a cada 5min
+  setInterval(renderFameInCard, 5*60*1000);
+  setInterval(()=>lMissions(),2*60*1000);
+}
+
+init();
+</script></body></html>
